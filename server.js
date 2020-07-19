@@ -210,7 +210,7 @@ function oauthFlowCompleted(access_token, res) {
    // Retreive user name: GET https://api.ciscospark.com/v1/people/me
    const options = {
       method: 'GET',
-      url: 'https://api.ciscospark.com/v1/people/me',
+      url: 'https://api.ciscospark.com/v1/rooms',
       headers:
       {
          "authorization": "Bearer " + access_token
@@ -219,15 +219,15 @@ function oauthFlowCompleted(access_token, res) {
 
    request(options, function (error, response, body) {
       if (error) {
-         debug("could not reach Webex API to retreive Person's details, error: " + error);
-         res.send("<h1>OAuth Integration could not complete</h1><p>Sorry, could not retreive your Webex Teams account details. Try again...</p>");
+         debug("could not reach Webex API to retreive Room's, error: " + error);
+         res.send("<h1>OAuth Integration could not complete</h1><p>Sorry, could not retreive your Room's. Try again...</p>");
          return;
       }
 
       // Check the call is successful
       if (response.statusCode != 200) {
-         debug("could not retreive your details, /people/me returned: " + response.statusCode);
-         res.send("<h1>OAuth Integration could not complete</h1><p>Sorry, could not retreive your Webex Teams account details. Try again...</p>");
+         debug("could not retreive your details, /rooms returned: " + response.statusCode);
+         res.send("<h1>OAuth Integration could not complete</h1><p>Sorry, could not retreive your Rooms. Try again...</p>");
          return;
       }
 
@@ -243,8 +243,8 @@ function oauthFlowCompleted(access_token, res) {
       //    }
       const json = JSON.parse(body);
       if ((!json) || (!json.roomName)) {
-         debug("could not parse Person details: bad json payload or could not find a displayName.");
-         res.send("<h1>OAuth Integration could not complete</h1><p>Sorry, could not retreive your Webx Teams account details. Try again...</p>");
+         debug("could not parse Room details: bad json payload or could not find a roomName.");
+         res.send("<h1>OAuth Integration could not complete</h1><p>Sorry, could not retreive your Room details. Try again...</p>");
          return;
       }
 
