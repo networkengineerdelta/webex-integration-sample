@@ -207,7 +207,7 @@ function oauthFlowCompleted(access_token, res) {
    // Custom logic below
    //
 
-   // Retreive user name: GET https://api.ciscospark.com/v1/people/me
+   // Retreive user name: GET https://api.ciscospark.com/v1/rooms
    const options = {
       method: 'GET',
       url: 'https://api.ciscospark.com/v1/rooms',
@@ -249,11 +249,11 @@ function oauthFlowCompleted(access_token, res) {
       }
 
       // Uncomment to send feedback via static HTML code 
-      //res.send("<h1>OAuth Integration example for Webex (static HTML)</h1><p>So happy to meet, " + json.displayName + " !</p>");
+      res.send("<h1>OAuth Integration example for Webex (static HTML)</h1><p>here is the json, " + json + " !</p>");
       // Current code leverages an EJS template:
-      const str = read(join(__dirname, '/www/room-list.ejs'), 'utf8');
-      const compiled = ejs.compile(str)({ "title": json.roomName });
-      res.send(compiled);
+      //const str = read(join(__dirname, '/www/room-list.ejs'), 'utf8');
+      //const compiled = ejs.compile(str)({ "items": [ {"title": json.roomName }]);
+      //res.send(compiled);
    });
 }
 
